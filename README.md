@@ -1,6 +1,6 @@
 # prototype_product_client
 
-> My impressive Nuxt.js project
+> Client for [Prototype Product App](/stevenlsjr/prototype_product_app)
 
 ## Build Setup
 
