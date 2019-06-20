@@ -1,5 +1,7 @@
 # prototype_product_client
 
+[![Build Status](https://travis-ci.com/stevenlsjr/prototype_product_client.svg?branch=master)](https://travis-ci.com/stevenlsjr/prototype_product_client)
+
 > Client for [Prototype Product App](/stevenlsjr/prototype_product_app)
 
 ## Build Setup
