@@ -1,4 +1,8 @@
 import NuxtConfig from '@nuxt/config';
+import * as dotenv from 'dotenv';
+
+dotenv.config();
+
 
 const config: NuxtConfig = {
   mode: 'universal',
@@ -18,6 +22,14 @@ const config: NuxtConfig = {
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
   },
+
+  /**
+   * environmental variables
+   */
+  env: {
+    'PRODUCT_API_BACKEND': process.env['PRODUCT_API_BACKEND'] || 'http://localhost:8000'
+  },
+
   /*
    ** Customize the progress-bar color
    */
@@ -51,7 +63,7 @@ const config: NuxtConfig = {
     /*
      ** You can extend webpack config here
      */
-    extend() {}
+    extend() { }
   }
 }
 
