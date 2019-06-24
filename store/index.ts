@@ -1,6 +1,5 @@
-import { Product } from '../models';
-import { MutationTree, ActionTree } from 'vuex';
-
+import { Product } from '../lib/models'
+import { MutationTree, ActionTree } from 'vuex'
 
 export const MUTATIONS = {
   setProducts: 'setProducts'

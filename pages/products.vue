@@ -2,13 +2,24 @@
   <article class="content">
     <ul>
       <li class="product-item" v-for="product in products" :key="product.url">
-        <div>{{product.name}}</div>
-        <div class="product-price">{{product.pricePerItem}}</div>
+        <product-item :product="product"></product-item>
       </li>
     </ul>
     <nav class="pagination">
-      <button :disabled="!previousPage" class="page-nav" >Previous</button>
-      <button :disabled="!nextPage" class="page-nav">Next</button>
+      <button
+        :disabled="!previousPage"
+        class="page-nav"
+        @click="fetchPage(previousPage)"
+      >
+        Previous
+      </button>
+      <button
+        :disabled="!nextPage"
+        class="page-nav"
+        @click="fetchPage(nextPage)"
+      >
+        Next
+      </button>
     </nav>
   </article>
 </template>
@@ -17,33 +28,52 @@
 import { Vue, Component } from 'vue-property-decorator'
 import { ACTIONS } from '../store/index'
 import '@nuxtjs/axios'
-import { Product, jsonToProduct } from '../models/index'
-
-interface AsyncData {
-  products: Product[]
-  nextPage?: string
-  previousPage?: string
-}
+import { Product, jsonToProduct, PaginatedList } from '../lib/models'
+import { Api, api } from '../lib/api'
+import { Context } from '@nuxt/vue-app'
+import ProductItem from '~/components/ProductItem.vue'
 
 @Component({
-  async asyncData({ params, $axios }): Promise<AsyncData> {
-    const url = process.env['PRODUCT_API_BACKEND'] + '/api/v1/products?limit=1'
-    const res = await $axios.$get(url)
-    const { count, next, previous, results } = res
-    const products = results.map(jsonToProduct)
+  async asyncData({ app, $axios }: Context) {
+    const $api = api($axios)
+    const products = await $api.products({ limit: 2, offset: 0 })
     return {
-      products,
-      nextPage: next,
-      previousPage: previous
+      products: products.result,
+      nextPage: products.nextUri,
+      previousPage: products.previousUri,
+      limit: products.limit,
+      offset: products.offset
     }
-  }
+  },
+  components: { ProductItem }
 })
 export default class Products extends Vue {
+  $api!: Api
   products!: Product[]
+  limit!: number
+  offset!: number
   nextPage?: string
   previousPage?: string
 
-  async fetchNextPage() {}
+  get productPage(): PaginatedList<Product> {
+    return {
+      result: this.products,
+      previousUri: this.previousPage,
+      nextUri: this.nextPage,
+      limit: this.limit,
+      offset: this.offset
+    }
+  }
+  set productPage(value: PaginatedList<Product>) {
+    this.products = value.result
+    this.limit = value.limit
+    this.previousPage = value.previousUri
+    this.nextPage = value.nextUri
+  }
+
+  async fetchPage(url: string) {
+    this.productPage = await api(this.$axios).products({ url })
+  }
 }
 </script>
 

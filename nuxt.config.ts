@@ -1,8 +1,7 @@
-import NuxtConfig from '@nuxt/config';
-import * as dotenv from 'dotenv';
+import NuxtConfig from '@nuxt/config'
+import * as dotenv from 'dotenv'
 
-dotenv.config();
-
+dotenv.config()
 
 const config: NuxtConfig = {
   mode: 'universal',
@@ -27,7 +26,8 @@ const config: NuxtConfig = {
    * environmental variables
    */
   env: {
-    'PRODUCT_API_BACKEND': process.env['PRODUCT_API_BACKEND'] || 'http://localhost:8000'
+    PRODUCT_API_BACKEND:
+      process.env['PRODUCT_API_BACKEND'] || 'http://localhost:8000'
   },
 
   /*
@@ -41,14 +41,14 @@ const config: NuxtConfig = {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: [],
+  plugins: ['~/plugins/filters.ts'],
   /*
    ** Nuxt.js modules
    */
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
-    '@nuxtjs/pwa',
+    '@nuxtjs/pwa'
     // '@nuxtjs/eslint-module'
   ],
   /*
@@ -63,8 +63,8 @@ const config: NuxtConfig = {
     /*
      ** You can extend webpack config here
      */
-    extend() { }
+    extend() {}
   }
 }
 
-export default config;
+export default config

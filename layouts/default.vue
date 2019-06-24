@@ -1,7 +1,7 @@
 <template>
   <div>
-    <navbar/>
-    <nuxt/>
+    <navbar />
+    <nuxt />
   </div>
 </template>
 
@@ -36,6 +36,12 @@ html {
 *:after {
   box-sizing: border-box;
   margin: 0;
+}
+
+* {
+  border-style: solid;
+  border-width: 1px;
+  border-color: red;
 }
 
 .button--green {

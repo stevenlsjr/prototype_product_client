@@ -1,9 +1,17 @@
 export interface Product {
-  url: string
+  url?: string
   name: string
   upc: string
-  categoryUrls: string[]
+  categoryUrls?: string[]
   pricePerItem: number
+}
+
+export interface PaginatedList<Model> {
+  limit: number
+  offset: number
+  nextUri?: string
+  previousUri?: string
+  result: Model[]
 }
 
 export function jsonToProduct(json: any): Product {
