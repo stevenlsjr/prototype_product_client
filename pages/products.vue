@@ -9,15 +9,11 @@
       <button
         :disabled="!previousPage"
         class="page-nav"
-        @click="fetchPage(previousPage)"
+        @click="onPreviousPage"
       >
         Previous
       </button>
-      <button
-        :disabled="!nextPage"
-        class="page-nav"
-        @click="fetchPage(nextPage)"
-      >
+      <button :disabled="!nextPage" class="page-nav" @click="onNextPage">
         Next
       </button>
     </nav>
@@ -36,45 +32,46 @@ import ProductItem from '~/components/ProductItem.vue'
 @Component({
   async asyncData({ app, $axios }: Context) {
     const $api = api($axios)
-    const products = await $api.products({ limit: 2, offset: 0 })
+    const limit = 30
+    const page = await $api.products({ limit, offset: 0 })
     return {
-      products: products.result,
-      nextPage: products.nextUri,
-      previousPage: products.previousUri,
-      limit: products.limit,
-      offset: products.offset
+      limit: page.limit,
+      offset: page.offset,
+      page
     }
   },
   components: { ProductItem }
 })
-export default class Products extends Vue {
-  $api!: Api
-  products!: Product[]
+class Products extends Vue {
   limit!: number
   offset!: number
-  nextPage?: string
-  previousPage?: string
-
-  get productPage(): PaginatedList<Product> {
-    return {
-      result: this.products,
-      previousUri: this.previousPage,
-      nextUri: this.nextPage,
-      limit: this.limit,
-      offset: this.offset
-    }
-  }
-  set productPage(value: PaginatedList<Product>) {
-    this.products = value.result
-    this.limit = value.limit
-    this.previousPage = value.previousUri
-    this.nextPage = value.nextUri
+  page!: PaginatedList<Product>
+  get products() {
+    return this.page.result
   }
 
+  get nextPage() {
+    return this.page.nextUri
+  }
+  get previousPage() {
+    return this.page.previousUri
+  }
+
+  onNextPage() {
+    this.offset += this.limit
+    return this.fetchPage(this.nextPage)
+  }
+
+  onPreviousPage() {
+    this.offset -= this.limit
+    return this.fetchPage(this.nextPage)
+  }
   async fetchPage(url: string) {
-    this.productPage = await api(this.$axios).products({ url })
+    this.page = await api(this.$axios).products({ url })
   }
 }
+
+export default Products
 </script>
 
 

@@ -49,7 +49,8 @@ class ApiImpl implements Api {
       limit,
       offset,
       nextUri: res.next,
-      previousUri: res.previous
+      previousUri: res.previous,
+      count: res.count
     }
   }
 }

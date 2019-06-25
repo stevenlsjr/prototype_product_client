@@ -9,6 +9,7 @@ export interface Product {
 export interface PaginatedList<Model> {
   limit: number
   offset: number
+  count: number
   nextUri?: string
   previousUri?: string
   result: Model[]

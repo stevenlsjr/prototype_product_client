@@ -16,8 +16,6 @@ export default Vue.extend({
 })
 </script>
 
-
-
 <style>
 html {
   font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI',
@@ -38,11 +36,11 @@ html {
   margin: 0;
 }
 
-* {
+/* * {
   border-style: solid;
   border-width: 1px;
   border-color: red;
-}
+} */
 
 .button--green {
   display: inline-block;

@@ -1,8 +1,12 @@
 <template>
   <div class="container">
     <div>
-      <h1 class="title">prototype_product_client</h1>
-      <h2 class="subtitle">My impressive Nuxt.js project</h2>
+      <h1 class="title">
+        prototype_product_client
+      </h1>
+      <h2 class="subtitle">
+        My impressive Nuxt.js project
+      </h2>
     </div>
   </div>
 </template>

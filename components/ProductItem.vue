@@ -10,11 +10,13 @@
 </template>
 <script lang="ts">
 import { Vue, Component, Prop } from 'vue-property-decorator'
-import { Product } from '~/lib/models'
+import { Product } from '../lib/models'
 @Component({})
-export default class ProductItem extends Vue {
+class ProductItem extends Vue {
   @Prop() product!: Product
 }
+
+export default ProductItem
 </script>
 
 <style scoped>
