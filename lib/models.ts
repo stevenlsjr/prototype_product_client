@@ -1,3 +1,17 @@
+export interface AuthUser {
+  url: string
+  pk: number,
+  username: string
+  email: string
+  groupUrls?: [string]
+  groups?: [string]
+  isStaff?: [string]
+}
+
+export interface Jwt {
+  
+}
+
 export interface Product {
   url?: string
   name: string
