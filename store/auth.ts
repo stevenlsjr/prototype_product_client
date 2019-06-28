@@ -1,4 +1,4 @@
-import { AuthUser } from '~/models'
+import { AuthUser } from "../lib/models"
 
 
 export interface AuthState {

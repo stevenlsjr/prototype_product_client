@@ -6,16 +6,11 @@
       </li>
     </ul>
     <nav class="pagination">
-      <button
-        :disabled="!previousPage"
-        class="page-nav"
-        @click="onPreviousPage"
-      >
-        Previous
-      </button>
-      <button :disabled="!nextPage" class="page-nav" @click="onNextPage">
-        Next
-      </button>
+
+        <page-limit-input name="page-limit" v-model.number="limit" :min="10" :max="50"/>
+
+      <button :disabled="!previousPage" class="page-nav" @click="onPreviousPage">Previous</button>
+      <button :disabled="!nextPage" class="page-nav" @click="onNextPage">Next</button>
     </nav>
   </article>
 </template>
@@ -25,9 +20,10 @@ import { Vue, Component } from 'vue-property-decorator'
 import { ACTIONS } from '../store/index'
 import '@nuxtjs/axios'
 import { Product, jsonToProduct, PaginatedList } from '../lib/models'
-import { Api, api } from '../lib/api'
+import { Api, api, ProductParams } from '../lib/api'
 import { Context } from '@nuxt/vue-app'
 import ProductItem from '~/components/ProductItem.vue'
+import PageLimitInput from '~/components/PageLimitInput.vue'
 
 @Component({
   async asyncData({ app, $axios }: Context) {
@@ -40,12 +36,13 @@ import ProductItem from '~/components/ProductItem.vue'
       page
     }
   },
-  components: { ProductItem }
+  components: { ProductItem, PageLimitInput }
 })
 class Products extends Vue {
-  limit!: number
+  private limit!: number
   offset!: number
   page!: PaginatedList<Product>
+
   get products() {
     return this.page.result
   }
@@ -58,16 +55,23 @@ class Products extends Vue {
   }
 
   onNextPage() {
-    this.offset += this.limit
-    return this.fetchPage(this.nextPage)
+    if (this.nextPage) {
+      this.offset += this.limit
+      return this.fetchPage({ limit: this.limit, offset: this.offset })
+    }
   }
 
   onPreviousPage() {
-    this.offset -= this.limit
-    return this.fetchPage(this.nextPage)
+    if (this.previousPage) {
+      this.offset -= this.limit
+      if (this.offset < 0){
+        this.offset = 0
+      }
+      return this.fetchPage({ limit: this.limit, offset: this.offset })
+    }
   }
-  async fetchPage(url: string) {
-    this.page = await api(this.$axios).products({ url })
+  async fetchPage(params: ProductParams) {
+    this.page = await api(this.$axios).products(params)
   }
 }
 
@@ -88,11 +92,10 @@ export default Products
 .product-item {
   display: flex;
   justify-content: space-between;
-}
-
-.product-item * {
   margin-left: 1em;
   margin-right: 1em;
+  margin-top: 0em;
+  margin-bottom: 0em;
 }
 
 .product-price::before {
