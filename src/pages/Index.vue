@@ -5,18 +5,18 @@
         prototype_product_client
       </h1>
       <h2 class="subtitle">
-        My impressive Nuxt.js project
+        My impressive Vue.js project
       </h2>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
+import { Component, Vue } from "vue-property-decorator";
 
 @Component({})
 class Index extends Vue {}
-export default Index
+export default Index;
 </script>
 
 <style>
@@ -31,8 +31,8 @@ export default Index
 }
 
 .title {
-  font-family: 'Quicksand', 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
-    'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-family: "Quicksand", "Source Sans Pro", -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   display: block;
   font-weight: 300;
   font-size: 100px;

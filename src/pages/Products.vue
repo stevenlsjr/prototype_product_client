@@ -18,24 +18,22 @@
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator'
 import { ACTIONS } from '../store/index'
-import '@nuxtjs/axios'
 import { Product, jsonToProduct, PaginatedList } from '../lib/models'
 import { Api, api, ProductParams } from '../lib/api'
-import { Context } from '@nuxt/vue-app'
-import ProductItem from '~/components/ProductItem.vue'
-import PageLimitInput from '~/components/PageLimitInput.vue'
+import ProductItem from '../components/ProductItem.vue'
+import PageLimitInput from '../components/PageLimitInput.vue'
 
 @Component({
-  async asyncData({ app, $axios }: Context) {
-    const $api = api($axios)
-    const limit = 30
-    const page = await $api.products({ limit, offset: 0 })
-    return {
-      limit: page.limit,
-      offset: page.offset,
-      page
-    }
-  },
+  // async asyncData({ app, $axios }: Context) {
+  //   const $api = api($axios)
+  //   const limit = 30
+  //   const page = await $api.products({ limit, offset: 0 })
+  //   return {
+  //     limit: page.limit,
+  //     offset: page.offset,
+  //     page
+  //   }
+  // },
   components: { ProductItem, PageLimitInput }
 })
 class Products extends Vue {
@@ -71,7 +69,7 @@ class Products extends Vue {
     }
   }
   async fetchPage(params: ProductParams) {
-    this.page = await api(this.$axios).products(params)
+    // this.page = await api(this.$axios).products(params)
   }
 }
 

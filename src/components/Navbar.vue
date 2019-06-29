@@ -1,18 +1,18 @@
 <template>
   <nav>
-    <nuxt-link class="navbar-item" to="/">
+    <router-link class="navbar-item" to="/">
       Index
-    </nuxt-link>
-    <nuxt-link class="navbar-item" to="/products">
+    </router-link>
+    <router-link class="navbar-item" to="/products">
       Products
-    </nuxt-link>
+    </router-link>
   </nav>
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
+import Vue from "vue";
 
-export default Vue.extend({})
+export default Vue.extend({});
 </script>
 
 <style scoped>
