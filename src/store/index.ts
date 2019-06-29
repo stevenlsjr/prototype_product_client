@@ -1,5 +1,9 @@
 import { Product } from "../lib/models";
 import { MutationTree, ActionTree } from "vuex";
+import Vue from "vue";
+import Vuex from "vuex";
+import authModule from "./auth";
+Vue.use(Vuex);
 
 export const MUTATIONS = {
   setProducts: "setProducts"
@@ -28,3 +32,14 @@ export const actions: ActionTree<State, State> = {
     console.log(process.env["PRODUCT_API_BACKEND"]);
   }
 };
+
+export default function createStore() {
+  return new Vuex.Store({
+    state: state(),
+    mutations,
+    actions,
+    modules: {
+      auth: authModule()
+    }
+  });
+}

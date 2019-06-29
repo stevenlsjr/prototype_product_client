@@ -9,14 +9,14 @@
   </div>
 </template>
 <script lang="ts">
-import { Vue, Component, Prop } from 'vue-property-decorator'
-import { Product } from '../lib/models'
+import { Vue, Component, Prop } from "vue-property-decorator";
+import { Product } from "../lib/models";
 @Component({})
 class ProductItem extends Vue {
-  @Prop() product!: Product
+  @Prop() product!: Product;
 }
 
-export default ProductItem
+export default ProductItem;
 </script>
 
 <style scoped>
@@ -28,6 +28,6 @@ export default ProductItem
   margin: 0.4em;
 }
 .product-price > *::before {
-  content: '$';
+  content: "$";
 }
 </style>

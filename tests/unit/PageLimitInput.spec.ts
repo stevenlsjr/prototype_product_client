@@ -1,10 +1,10 @@
-import { mount } from "@vue/test-utils";
+import { mount, Wrapper } from "@vue/test-utils";
 
-import PageLimitInput from "../components/PageLimitInput.vue";
+import PageLimitInput from "@/components/PageLimitInput.vue";
 
 describe("PageLimitInput component", () => {
   const props = { max: 40, min: 10, value: 20 };
-  let wrapper = null;
+  let wrapper: Wrapper<any>;
   beforeEach(() => {
     wrapper = mount(PageLimitInput, {
       propsData: props
@@ -25,7 +25,7 @@ describe("PageLimitInput component", () => {
   });
   test("it should emit input events", () => {
     wrapper.setProps({ value: 30 });
-    const input = wrapper.find("input");
+    const input = wrapper.find("input") as any;
     input.element.value = 31;
     input.trigger("input");
     expect(wrapper.emitted().input).toBeTruthy();
@@ -33,7 +33,7 @@ describe("PageLimitInput component", () => {
   });
   test("it should not emit input events with invalid data", () => {
     wrapper.setProps({ value: 30 });
-    const input = wrapper.find("input");
+    const input = wrapper.find("input") as any;
     input.element.value = 0;
     input.trigger("input");
     expect(wrapper.emitted().input).toBeFalsy();

@@ -1,6 +1,7 @@
 module.exports = {
   moduleFileExtensions: ["js", "jsx", "json", "vue", "ts", "tsx"],
   transform: {
+    "^.+\\.js$": "babel-jest",
     "^.+\\.vue$": "vue-jest",
     ".+\\.(css|styl|less|sass|scss|svg|png|jpg|ttf|woff|woff2)$":
       "jest-transform-stub",
@@ -18,10 +19,10 @@ module.exports = {
   watchPlugins: [
     "jest-watch-typeahead/filename",
     "jest-watch-typeahead/testname"
-  ],
-  globals: {
-    "ts-jest": {
-      babelConfig: true
-    }
-  }
+  ]
+  // globals: {
+  //   "ts-jest": {
+  //     babelConfig: true
+  //   }
+  // }
 };
